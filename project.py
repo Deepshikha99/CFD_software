@@ -162,6 +162,37 @@ def build():
 	button1.pack()
 	button1.place(relwidth=0.2, relheight=0.2, rely=0.75, relx=0.4)
 
+	frame1=tk.Frame(root)
+	frame1.pack()
+	frame1.place(relwidth=1, relheight=0.2, rely=0.8)
+	label=tk.Label(frame1, text="Already existing project?")
+	label.config(font=LARGE_FONT)
+	label.pack()
+	label.place(relheight=0.8, relwidth=0.4, relx=0.2)
+
+	def openexisting():
+	    try:
+	        try:
+	            root.tk.call('tk_getOpenFile', '-foobarbaz')
+	        except TclError:
+	            pass
+	        root.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
+	        root.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
+	    except:
+	        pass
+	    root.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
+	    root.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
+	    global folder
+	    global project_name
+	    fold = tk.filedialog.askdirectory()
+	    project_name=os.path.basename(fold)
+	    folder=os.path.dirname(fold)
+	    global flag2
+	    flag2=1
+	    create()
+	button=tk.Button(frame1, text="Open", font=helv36, command=openexisting)
+	button.pack()
+	button.place(relheight=0.8, relwidth=0.15, relx=0.6)
 
 
 	#specifications of window
@@ -177,7 +208,8 @@ def build():
 	positionRight = int((root.winfo_screenwidth()/2 - windowWidth/2))
 	positionDown = int(root.winfo_screenheight()/2 - windowHeight/2)
 	root.geometry("+{}+{}".format(positionRight, positionDown))
-build()
+	
 	 #window size can't be changed
 	root.mainloop()
 	return folder, project_name, flag, flag2
+build()
