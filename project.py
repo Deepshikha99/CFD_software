@@ -4,7 +4,7 @@ import os
 import errno
 from tkinter import font
 curdir=os.getcwd()
-folder = ""
+folder = curdir
 project_name=""
 flag=0
 LARGE_FONT= ("Verdana", 16)
@@ -13,7 +13,6 @@ SMALL_FONT= ("Verdana", 9)
 flag2=0
 def build():
 	root=tk.Tk()
-	root.resizable(0, 0)
 	global flag
 	#entry variable for storing project name
 	sv=tk.StringVar(root)
@@ -69,9 +68,7 @@ def build():
 	E1.focus_set()
 
 	#frame to store and take project location name
-	# frame=tk.Frame(root)
-	# frame.pack()
-	# frame.place(relheight=)
+
 	label=tk.Label(frame, text="Project Location: ")
 	label.config(font=helv36)
 	label.pack()
@@ -201,15 +198,10 @@ def build():
 	root.update()
 	windowWidth=root.winfo_width()
 	windowHeight=root.winfo_height()
-	# print(root.winfo_height())
-	# print(root.winfo_reqheight())
-	# windowWidth = root.winfo_reqwidth()
-	# windowHeight = root.winfo_reqheight()
 	positionRight = int((root.winfo_screenwidth()/2 - windowWidth/2))
 	positionDown = int(root.winfo_screenheight()/2 - windowHeight/2)
 	root.geometry("+{}+{}".format(positionRight, positionDown))
-	
+	root.resizable(1, 1)
 	 #window size can't be changed
 	root.mainloop()
 	return folder, project_name, flag, flag2
-build()
