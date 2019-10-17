@@ -24,6 +24,142 @@ class Page(tk.Frame):
 class Page1(Page):
    def __init__(self, *args, **kwargs):
        Page.__init__(self, *args, **kwargs)
+       top=tk.Frame(self)
+       top.pack()
+       top.place(relwidth=1, relheight=0.6)
+       bottom=tk.Frame(self)
+       bottom.pack()
+       bottom.place(relwidth=1, relheight=0.4, rely=0.6)
+
+       left=tk.Frame(top)
+       left.pack()
+       left.place(relwidth=0.5, relheight=1)
+       right=tk.Frame(top)
+       right.pack()
+       right.place(relwidth=0.5, relheight=1, relx=0.5)
+
+       label=tk.Label(left, text="Choose one from these", font=helv36)
+       label.pack(anchor=tk.W)
+       label.place(relx=0.3, rely=0.1, relheight=0.1)
+       #Radiobuttons of Gmsh, BDF, DM
+       rb=tk.Radiobutton(left, text='Gmsh', variable=preprocess, value=1, font=helv36, fg="maroon4")
+       rb.pack(anchor=tk.W)
+       rb.place(rely=0.25, relx=0.3, relheight=0.1)
+       rb=tk.Radiobutton(left, text='DM', variable=preprocess, value=2, font=helv36, fg="maroon4")
+       rb.pack(anchor=tk.W)
+       rb.place(rely=0.40, relx=0.3, relheight=0.1)
+       rb=tk.Radiobutton(left, text='BDF', variable=preprocess, value=3, font=helv36, fg="maroon4")
+       rb.pack(anchor=tk.W)
+       rb.place(rely=0.55, relx=0.3, relheight=0.1)
+
+       label=tk.Label(right, text="Select Parameters", font=helv36)
+       label.pack()
+       label.place(relx=0.3, rely=0.1, relheight=0.1)
+       label = tk.Label(right, text="Mesh format", font=helv36, fg="dark green")
+       label.pack()
+       label.place(relx=0, rely=0.3, relheight=0.1, relwidth=0.5)
+       meshformat.set("select")
+       w = tk.OptionMenu(right, meshformat, "select", "one", "two", "three")
+       w.config(font=SMALL_FONT)
+       w.pack()
+       w.place(relx=0.5, rely=0.3, relheight=0.1, relwidth=0.3)
+       label = tk.Label(right, text="Geo Available", font=helv36, fg="dark green")
+       label.pack()
+       label.place(relx=0, rely=0.5, relheight=0.1, relwidth=0.5)
+       geoavailable.set("select")
+       w = tk.OptionMenu(right, geoavailable, "select", "one", "two", "three")
+       w.config(font=SMALL_FONT)
+       w.pack()
+       w.place(relx=0.5, rely=0.5, relheight=0.1, relwidth=0.3)
+
+       
+       label=tk.Label(bottom, text="Geo File: ", font=helv36)
+       label.pack()
+       label.place(rely=0.1, relx=0.05, relwidth=0.15, relheight=0.15)
+       labelpre=tk.Label(bottom, textvariable=geofilename, relief="sunken", width="20")
+       labelpre.config(font=("Arial", 12), pady=10)
+       labelpre.pack()
+       labelpre.place(relwidth=0.6, relheight=0.15, rely=0.1, relx=0.2)
+       def selectgeo():
+        try:
+          try:
+              filledpre.tk.call('tk_getOpenFile', '-foobarbaz')
+          except TclError:
+              pass
+          filledpre.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
+          filledpre.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
+        except:
+          pass
+        def openfile():
+        # geofile=filedialog.askopenfilename(title='Select file', filetypes=(('Geo files', '*.geo'), ('all files', '*.*')))
+        # geofilename.set(ntpath.basename(geofile))
+        # os.system("cp %s %s/%s/pre-processing"%(geofile, folder, project_name))
+          buttonimp1.config(state="normal")
+        openfile()
+        bottom.bind('<Control-o>', openfile)
+       button=tk.Button(bottom, text="Browse", font=helv36, command=selectgeo)
+       button.pack()
+       button.place(relwidth=0.15, relheight=0.15, rely=0.1, relx=0.8)
+       
+       def createmsh():
+        # os.system("gmsh -2 %s/%s/pre-processing/%s"%(folder, project_name,geofilename.get()))
+        buttonimp2.config(state="normal")
+        filename=geofilename.get()
+        msh=os.path.splitext(filename)[0]
+        msh=msh+".msh"
+        mshfilename.set(msh)
+        filename=geofile
+        mshe=os.path.splitext(filename)[0]
+        mshfile=mshe+".msh"
+        global sol1
+        global sol2
+        sol1=1
+        if sol1==1 and sol2==1:
+          sv.set("1")
+
+       buttonimp1=tk.Button(bottom, text="Create msh", font=helv36, state="disabled", command=createmsh)
+       buttonimp1.pack()
+       buttonimp1.place(relwidth=0.20, relheight=0.15, rely=0.3, relx=0.4)
+
+       label=tk.Label(bottom, text="Msh File: ", font=helv36)
+       label.pack()
+       label.place(rely=0.55, relx=0.05, relwidth=0.15, relheight=0.15)
+       labelpre=tk.Label(bottom, textvariable=mshfilename, relief="sunken", width="20")
+       labelpre.config(font=("Arial", 12), pady=10)
+       labelpre.pack()
+       labelpre.place(relwidth=0.6, relheight=0.15, rely=0.55, relx=0.2)
+       def selectmsh():
+        try:
+          try:
+              filledpre.tk.call('tk_getOpenFile', '-foobarbaz')
+          except TclError:
+              pass
+          filledpre.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
+          filledpre.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
+        except:
+          pass
+        def openfile():
+        # mshfile=filedialog.askopenfilename(title='Select file', filetypes=(('Msh files', '*.msh'), ('all files', '*.*')))
+        # mshfilename.set(ntpath.basename(mshfile))
+        # os.system("cp %s %s/%s/pre-processing"%(mshfile, folder, project_name))
+          buttonimp2.config(state="normal")
+          global sol1
+          global sol2
+          sol1=1
+          if sol1==1 and sol2==1:
+            sv.set("1")
+        openfile()
+        bottom.bind('<Control-o>', openfile)
+       button=tk.Button(bottom, text="Browse", font=helv36, command=selectmsh)
+       button.pack()
+       button.place(relwidth=0.15, relheight=0.15, rely=0.55, relx=0.8)
+
+       def showmsh():
+        print("some")
+        # os.system("gmsh %s/%s/pre-processing/%s"%(folder, project_name,mshfilename.get()))
+       buttonimp2=tk.Button(bottom, text="Show msh", font=helv36, state="disabled", command=showmsh)
+       buttonimp2.pack()
+       buttonimp2.place(relwidth=0.20, relheight=0.15, rely=0.75, relx=0.4)
       
 
 class Page2(Page):
