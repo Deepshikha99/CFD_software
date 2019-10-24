@@ -318,6 +318,96 @@ class Page2(Page):
 class Page3(Page):
    def __init__(self, *args, **kwargs):
        Page.__init__(self, *args, **kwargs)
+       top=tk.Frame(self)
+       top.pack()
+       top.place(relwidth=1, relheight=0.6)
+       bottom=tk.Frame(self)
+       bottom.pack()
+       bottom.place(relwidth=1, relheight=0.4, rely=0.6)
+
+       left=tk.Frame(top)
+       left.pack()
+       left.place(relwidth=0.5, relheight=1)
+       right=tk.Frame(top)
+       right.pack()
+       right.place(relwidth=0.5, relheight=1, relx=0.5)
+
+       label=tk.Label(left, text="Choose one or more from these", font=helv36)
+       label.pack(anchor=tk.W)
+       label.place(relx=0.2, rely=0.1, relheight=0.1)
+       #Checkbuttons of Paraview, TechPlot and Python
+       rb=tk.Checkbutton(left, text="Paraview", variable=postprocess1, onvalue=1, offvalue=0, font=helv36, fg="maroon4")
+       rb.pack(anchor=tk.W)
+       rb.place(rely=0.25, relx=0.3, relheight=0.1)
+       rb=tk.Checkbutton(left, text="Techplot", variable=postprocess2, onvalue=1, offvalue=0, font=helv36, fg="maroon4")
+       rb.pack(anchor=tk.W)
+       rb.place(rely=0.40, relx=0.3, relheight=0.1)
+       rb=tk.Checkbutton(left, text="Python", variable=postprocess3, onvalue=1, offvalue=0, font=helv36, fg="maroon4")
+       rb.pack(anchor=tk.W)
+       rb.place(rely=0.55, relx=0.3, relheight=0.1)
+
+       label=tk.Label(right, text="Select Parameters", font=helv36)
+       label.pack()
+       label.place(relx=0.3, rely=0.1, relheight=0.1)
+       label = tk.Label(right, text="Animation", font=helv36, fg="dark green")
+       label.pack()
+       label.place(relx=0, rely=0.3, relheight=0.1, relwidth=0.5)
+       animation.set("select")
+       w = tk.OptionMenu(right, animation, "select", "one", "two", "three")
+       w.config(font=SMALL_FONT)
+       w.pack()
+       w.place(relx=0.5, rely=0.3, relheight=0.1, relwidth=0.3)
+       label = tk.Label(right, text="Plot", font=helv36, fg="dark green")
+       label.pack()
+       label.place(relx=0, rely=0.5, relheight=0.1, relwidth=0.5)
+       plot.set("select")
+       w = tk.OptionMenu(right, plot, "select", "one", "two", "three")
+       w.config(font=SMALL_FONT)
+       w.pack()
+       w.place(relx=0.5, rely=0.5, relheight=0.1, relwidth=0.3)
+
+
+       label=tk.Label(bottom, text="Solver Folder: ", font=helv36)
+       label.pack()
+       label.place(rely=0.2, relx=0, relwidth=0.2, relheight=0.15)
+       labelpre=tk.Label(bottom, textvariable=postfoldername, relief="sunken", width="20")
+       labelpre.config(font=("Arial", 12), pady=10)
+       labelpre.pack()
+       labelpre.place(relwidth=0.6, relheight=0.15, rely=0.2, relx=0.2)     
+
+       def selectpost():
+        sv2.set("1")
+        try:
+          try:
+              root.tk.call('tk_getOpenFile', '-foobarbaz')
+          except TclError:
+              pass
+          root.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
+          root.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
+        except:
+            pass
+        root.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
+        root.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
+        # postfolder = tk.filedialog.askdirectory()
+        # postfoldername.set(postfolder)
+        # os.system(""find %s/ -maxdepth 1 -type f -print0 | xargs -0 cp -t %s/%s/postprocessor"%(postfolder, folder, project_name)")
+       button=tk.Button(bottom, text="Browse", font=helv36, command=selectpost)
+       button.pack()
+       button.place(relwidth=0.15, relheight=0.15, rely=0.2, relx=0.8)  
+       def callback(sv):
+        if sv2.get()=="1":
+          buttonpost.config(state="normal")
+       sv2.trace("w", lambda name, index, mode, sv=sv2: callback(sv2))
+       def paraview():
+        print("some")
+        # os.system("find %s/files/ -maxdepth 1 -type f -print0 | xargs -0 cp -t %s/%s/postprocessor"%(curdir, folder, project_name))
+        # os.chdir(r"%s/%s/postprocessor"%(folder, project_name))
+        # os.system("python plot_data.py")
+        
+       buttonpost=tk.Button(bottom, text="Run paraview", font=helv36, command=paraview, state="disabled")
+       buttonpost.pack()
+       buttonpost.place(relwidth=0.20, relheight=0.15, rely=0.5, relx=0.4)
+
 
 class MainView(tk.Frame):
     def __init__(self, *args, **kwargs):
