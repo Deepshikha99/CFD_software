@@ -1,7 +1,7 @@
 # CFD_software
-##INTERFACE FOR CFD MODELLING
+## INTERFACE FOR CFD MODELLING
 
-##TABLE OF CONTENTS
+## TABLE OF CONTENTS
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
@@ -19,7 +19,7 @@ Computational fluid dynamics (CFD) is a branch of fluid mechanics that uses nume
 * time
 * errno
 
-##Setup
+## Setup
 The following software will be needed:
      
 * Gmsh 
@@ -33,10 +33,10 @@ The following software will be needed:
 * openFOAM
   * sudo apt-get install openfoam
 
-##Run
+## Run
 Double Click on the application launcher.
 
-##Issue
+## Issue
 * If fluidity installation doesn't work properly, try executing without ppa command.
 * Multi-threads and aren't enabled yet, so multiple stages won't run simultaneously.
 * If application doesn't launch properly, run `chmod u+x pr.py` after opening terminal inside the github repository.
