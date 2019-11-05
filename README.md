@@ -35,7 +35,7 @@ The following software will be needed:
 * In kkkd.desktop file, change the following 2 lines to according to your system:
   * `Exec=/home/khushi/CFD_software/cfd/main.py`
   * `Icon=/home/khushi/Desktop/cfd/index.png`
-* In cfd/main.py file , change the line 18 according to your system:
+* In cfd/main.py file and cfd/project.py file , change the line 18 and line 7 respectively according to your system:
   * `curdir="/home/khushi/CFD_software/cfd"`
   
 
@@ -44,6 +44,6 @@ Double Click on the application launcher.
 
 ## Issue
 * If fluidity installation doesn't work properly, try executing without ppa command.
-* Multi-threads and aren't enabled yet, so multiple stages won't run simultaneously.
-* If application doesn't launch properly, run `chmod u+x pr.py` after opening terminal inside the github repository.
+* Multi-threads aren't enabled yet, so multiple stages won't run simultaneously.
+* If application doesn't launch properly, run `chmod u+x cfd/main.py` after opening terminal inside the github repository.
 
