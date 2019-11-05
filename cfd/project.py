@@ -4,6 +4,7 @@ import os
 import errno
 from tkinter import font
 curdir=os.getcwd()
+curdir="/home/khushi/CFD_software/cfd"
 folder = curdir
 project_name=""
 flag=0

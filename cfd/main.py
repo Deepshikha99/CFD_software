@@ -8,12 +8,14 @@ from tkinter.ttk import *
 from tkinter import *
 import tkinter.scrolledtext as ScrolledText
 import time
+import ntpath
 
 LARGE_FONT= ("Verdana", 16)
 MEDIUM_FONT= ("Verdana", 12)
 SMALL_FONT= ("Verdana", 9) 
 
 curdir=os.getcwd()
+curdir="/home/khushi/CFD_software/cfd"
 
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -91,9 +93,9 @@ class Page1(Page):
         except:
           pass
         def openfile():
-        # geofile=filedialog.askopenfilename(title='Select file', filetypes=(('Geo files', '*.geo'), ('all files', '*.*')))
-        # geofilename.set(ntpath.basename(geofile))
-        # os.system("cp %s %s/%s/pre-processing"%(geofile, folder, project_name))
+          geofile=filedialog.askopenfilename(title='Select file', filetypes=(('Geo files', '*.geo'), ('all files', '*.*')))
+          geofilename.set(ntpath.basename(geofile))
+          os.system("cp %s %s/%s/pre-processing"%(geofile, folder, project_name))
           timeStr = time.asctime()
           msg="Time: "+timeStr
           logging.info(msg)
@@ -103,6 +105,14 @@ class Page1(Page):
           logging.info("\n")
           filehandle.write(msg+"\n")
           buttonimp1.config(state="normal")
+          timeStr = time.asctime()
+          msg="Time: "+timeStr
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          msg="'Create msh' button if pressed, takes a little time. Kindly wait until the process finishes."
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          logging.info("\n")
         openfile()
         bottom.bind('<Control-o>', openfile)
        button=tk.Button(bottom, text="Browse", font=helv36, command=selectgeo)
@@ -110,15 +120,7 @@ class Page1(Page):
        button.place(relwidth=0.15, relheight=0.15, rely=0.1, relx=0.8)
        
        def createmsh():
-        timeStr = time.asctime()
-        msg="Time: "+timeStr
-        logging.info(msg)
-        filehandle.write(msg+"\n")
-        msg="Creating %s.msh..."%os.path.splitext(geofilename.get())[0]
-        logging.info(msg)
-        filehandle.write(msg+"\n")
-        logging.info("\n")
-        # os.system("gmsh -2 %s/%s/pre-processing/%s"%(folder, project_name,geofilename.get()))
+        os.system("gmsh -2 %s/%s/pre-processing/%s"%(folder, project_name,geofilename.get()))
         timeStr = time.asctime()
         msg="Time: "+timeStr
         logging.info(msg)
@@ -127,6 +129,14 @@ class Page1(Page):
         logging.info(msg)
         logging.info("\n")
         filehandle.write(msg+"\n")
+        timeStr = time.asctime()
+        msg="Time: "+timeStr
+        logging.info(msg)
+        filehandle.write(msg+"\n")
+        msg="'Show msh' button if pressed, takes a little time. Kindly wait until the process completes."
+        logging.info(msg)
+        filehandle.write(msg+"\n")
+        logging.info("\n")
         buttonimp2.config(state="normal")
         filename=geofilename.get()
         msh=os.path.splitext(filename)[0]
@@ -163,9 +173,9 @@ class Page1(Page):
         except:
           pass
         def openfile():
-        # mshfile=filedialog.askopenfilename(title='Select file', filetypes=(('Msh files', '*.msh'), ('all files', '*.*')))
-        # mshfilename.set(ntpath.basename(mshfile))
-        # os.system("cp %s %s/%s/pre-processing"%(mshfile, folder, project_name))
+          mshfile=filedialog.askopenfilename(title='Select file', filetypes=(('Msh files', '*.msh'), ('all files', '*.*')))
+          mshfilename.set(ntpath.basename(mshfile))
+          os.system("cp %s %s/%s/pre-processing"%(mshfile, folder, project_name))
           timeStr = time.asctime()
           msg="Time: "+timeStr
           logging.info(msg)
@@ -175,6 +185,14 @@ class Page1(Page):
           logging.info("\n")
           filehandle.write(msg+"\n")
           buttonimp2.config(state="normal")
+          timeStr = time.asctime()
+          msg="Time: "+timeStr
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          msg="'Show msh' button if pressed, takes a little time. Kindly wait until the process completes."
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          logging.info("\n")
           global sol1
           global sol2
           sol1=1
@@ -185,17 +203,10 @@ class Page1(Page):
        button=tk.Button(bottom, text="Browse", font=helv36, command=selectmsh)
        button.pack()
        button.place(relwidth=0.15, relheight=0.15, rely=0.55, relx=0.8)
+ 
 
        def showmsh():
-        timeStr = time.asctime()
-        msg="Time: "+timeStr
-        logging.info(msg)
-        filehandle.write(msg+"\n")
-        msg="%s is visible."%mshfilename.get()
-        logging.info(msg)
-        logging.info("\n")
-        filehandle.write(msg+"\n")
-        # os.system("gmsh %s/%s/pre-processing/%s"%(folder, project_name,mshfilename.get()))
+        os.system("gmsh %s/%s/pre-processing/%s"%(folder, project_name,mshfilename.get()))
        buttonimp2=tk.Button(bottom, text="Show msh", font=helv36, state="disabled", command=showmsh)
        buttonimp2.pack()
        buttonimp2.place(relwidth=0.20, relheight=0.15, rely=0.75, relx=0.4)
@@ -296,9 +307,9 @@ class Page2(Page):
         except:
           pass
         def openfile():
-        # mshfile=filedialog.askopenfilename(title='Select file', filetypes=(('Msh files', '*.msh'), ('all files', '*.*')))
-        # mshfilename.set(ntpath.basename(mshfile))
-        # os.system("cp %s %s/%s/pre-processing"%(mshfile, folder, project_name))
+          mshfile=filedialog.askopenfilename(title='Select file', filetypes=(('Msh files', '*.msh'), ('all files', '*.*')))
+          mshfilename.set(ntpath.basename(mshfile))
+          os.system("cp %s %s/%s/pre-processing"%(mshfile, folder, project_name))
           timeStr = time.asctime()
           msg="Time: "+timeStr
           logging.info(msg)
@@ -323,9 +334,6 @@ class Page2(Page):
        def selectflml():
         global sol1
         global sol2
-        sol2=1
-        if sol1==1 and sol2==1:
-          sv.set("1")
         try:
           try:
               filledpre.tk.call('tk_getOpenFile', '-foobarbaz')
@@ -336,9 +344,9 @@ class Page2(Page):
         except:
           pass
         def openfile():
-        # flmlfile=filedialog.askopenfilename(title='Select file', filetypes=(('Flml files', '*.flml'), ('all files', '*.*')))
-        # flmlfilename.set(ntpath.basename(flmlfile))
-        # os.system("cp %s %s/%s"%(flmlfile, folder, project_name))
+          flmlfile=filedialog.askopenfilename(title='Select file', filetypes=(('Flml files', '*.flml'), ('all files', '*.*')))
+          flmlfilename.set(ntpath.basename(flmlfile))
+          os.system("cp %s %s/%s/solver"%(flmlfile, folder, project_name))
           timeStr = time.asctime()
           msg="Time: "+timeStr
           logging.info(msg)
@@ -347,6 +355,9 @@ class Page2(Page):
           logging.info(msg)
           logging.info("\n")
           filehandle.write(msg+"\n")
+          sol2=1
+          if sol1==1 and sol2==1:
+            sv.set("1")
         openfile()
         bottom.bind('<Control-o>', openfile)
        button=tk.Button(bottom, text="Browse", font=helv36, command=selectflml)
@@ -354,17 +365,9 @@ class Page2(Page):
        button.place(relwidth=0.15, relheight=0.15, rely=0.55, relx=0.8)
 
        def createvtu():
-        timeStr = time.asctime()
-        msg="Time: "+timeStr
-        logging.info(msg)
-        filehandle.write(msg+"\n")
-        msg="Fluidity is running..."
-        logging.info(msg)
-        logging.info("\n")
-        filehandle.write(msg+"\n")
-        # os.chdir(r"%s/%s"%(folder, project_name))
-        # os.system("fluidity ./solver/%s"%flmlfilename.get())
-        # os.system("find %s/%s/ -maxdepth 1 -type f -print0 | xargs -0 mv -t %s/%s/postprocessor"%(folder, project_name, folder, project_name))
+        os.chdir(r"%s/%s"%(folder, project_name))
+        os.system("fluidity ./solver/%s"%flmlfilename.get())
+        os.system("find %s/%s/ -maxdepth 1 -type f -print0 | xargs -0 mv -t %s/%s/postprocessor"%(folder, project_name, folder, project_name))
         timeStr = time.asctime()
         msg="Time: "+timeStr
         logging.info(msg)
@@ -378,6 +381,14 @@ class Page2(Page):
        def callback(sv):
         if sv.get()=="1":
           buttonsolve.config(state="normal")
+          timeStr = time.asctime()
+          msg="Time: "+timeStr
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          msg="'Run fluidity' button if pressed, takes a long time. Kindly wait until the process completes."
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          logging.info("\n")
        sv.trace("w", lambda name, index, mode, sv=sv: callback(sv))
        buttonsolve=tk.Button(bottom, text="Run fluidity", font=helv36, state="disabled", command=createvtu)
        buttonsolve.pack()
@@ -435,7 +446,7 @@ class Page3(Page):
        w.place(relx=0.5, rely=0.5, relheight=0.1, relwidth=0.3)
 
 
-       label=tk.Label(bottom, text="Solver Folder: ", font=helv36)
+       label=tk.Label(bottom, text="Postprocessor Folder: ", font=helv36)
        label.pack()
        label.place(rely=0.2, relx=0, relwidth=0.2, relheight=0.15)
        labelpre=tk.Label(bottom, textvariable=postfoldername, relief="sunken", width="20")
@@ -444,7 +455,7 @@ class Page3(Page):
        labelpre.place(relwidth=0.6, relheight=0.15, rely=0.2, relx=0.2)     
 
        def selectpost():
-        sv2.set("1")
+        
         try:
           try:
               root.tk.call('tk_getOpenFile', '-foobarbaz')
@@ -456,9 +467,9 @@ class Page3(Page):
             pass
         root.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
         root.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
-        # postfolder = tk.filedialog.askdirectory()
-        # postfoldername.set(postfolder)
-        # os.system(""find %s/ -maxdepth 1 -type f -print0 | xargs -0 cp -t %s/%s/postprocessor"%(postfolder, folder, project_name)")
+        postfolder = tk.filedialog.askdirectory()
+        postfoldername.set(postfolder)
+        os.system("find %s/ -maxdepth 1 -type f -print0 | xargs -0 cp -t %s/%s/postprocessor"%(postfolder, folder, project_name))
         timeStr = time.asctime()
         msg="Time: "+timeStr
         logging.info(msg)
@@ -467,25 +478,26 @@ class Page3(Page):
         logging.info(msg)
         logging.info("\n")
         filehandle.write(msg+"\n")
+        sv2.set("1")
        button=tk.Button(bottom, text="Browse", font=helv36, command=selectpost)
        button.pack()
        button.place(relwidth=0.15, relheight=0.15, rely=0.2, relx=0.8)  
        def callback(sv):
         if sv2.get()=="1":
           buttonpost.config(state="normal")
+          timeStr = time.asctime()
+          msg="Time: "+timeStr
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          msg="'Run paraview' button if pressed, takes a little time. Kindly wait until the process completes."
+          logging.info(msg)
+          filehandle.write(msg+"\n")
+          logging.info("\n")
        sv2.trace("w", lambda name, index, mode, sv=sv2: callback(sv2))
        def paraview():
-        timeStr = time.asctime()
-        msg="Time: "+timeStr
-        logging.info(msg)
-        filehandle.write(msg+"\n")
-        msg="Running Paraview..."
-        logging.info(msg)
-        logging.info("\n")
-        filehandle.write(msg+"\n")
-        # os.system("find %s/files/ -maxdepth 1 -type f -print0 | xargs -0 cp -t %s/%s/postprocessor"%(curdir, folder, project_name))
-        # os.chdir(r"%s/%s/postprocessor"%(folder, project_name))
-        # os.system("python plot_data.py")
+        os.system("find %s/files/ -maxdepth 1 -type f -print0 | xargs -0 cp -t %s/%s/postprocessor"%(curdir, folder, project_name))
+        os.chdir(r"%s/%s/postprocessor"%(folder, project_name))
+        os.system("python plot_data.py")
         timeStr = time.asctime()
         msg="Time: "+timeStr
         logging.info(msg)

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=CFDS
+Exec=/home/khushi/CFD_software/cfd/main.py
+Icon=/home/khushi/Desktop/cfd/index.png
+Terminal=true
+Type=Application
