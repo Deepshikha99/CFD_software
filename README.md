@@ -40,7 +40,8 @@ The following software will be needed:
   
 
 ## Run
-Double Click on the application launcher.
+* Double Click on the application launcher.
+* To view code documentation, open html/index.html.
 
 ## Issue
 * If fluidity installation doesn't work properly, try executing without ppa command.
