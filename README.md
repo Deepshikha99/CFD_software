@@ -35,6 +35,8 @@ The following software will be needed:
 * In kkkd.desktop file, change the following 2 lines to according to your system:
   * `Exec=/home/khushi/CFD_software/cfd/main.py`
   * `Icon=/home/khushi/Desktop/cfd/index.png`
+* In cfd/main.py file , change the line 18 according to your system:
+  * `curdir="/home/khushi/CFD_software/cfd"`
   
 
 ## Run
