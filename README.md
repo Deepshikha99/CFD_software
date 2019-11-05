@@ -32,6 +32,10 @@ The following software will be needed:
   * sudo apt-get install paraview
 * openFOAM
   * sudo apt-get install openfoam
+* In kkkd.desktop file, change the following 2 lines to according to your system:
+  * `Exec=/home/khushi/CFD_software/cfd/main.py`
+  * `Icon=/home/khushi/Desktop/cfd/index.png`
+  
 
 ## Run
 Double Click on the application launcher.
