@@ -4,7 +4,7 @@ import os
 import errno
 from tkinter import font
 curdir=os.getcwd()
-curdir="/home/khushi/CFD_software/cfd"
+curdir="/home/khushi/Desktop/cfd"
 folder = curdir
 project_name=""
 flag=0
@@ -93,7 +93,10 @@ def build():
 	    root.tk.call('set', '::tk::dialog::file::showHiddenBtn', '1')
 	    root.tk.call('set', '::tk::dialog::file::showHiddenVar', '0')
 	    global folder
-	    folder = tk.filedialog.askdirectory()
+	    fold = tk.filedialog.askdirectory()
+	    if not fold:
+	    	return
+	    folder=fold
 	    global label
 	    # label.destroy()
 	    label=tk.Label(frame, text=folder, relief="sunken", bg="gray88")
@@ -183,6 +186,8 @@ def build():
 	    global folder
 	    global project_name
 	    fold = tk.filedialog.askdirectory()
+	    if not fold:
+	    	return
 	    project_name=os.path.basename(fold)
 	    folder=os.path.dirname(fold)
 	    global flag2
